@@ -3,6 +3,7 @@
 
 #include "Shapes/Basis.h"
 #include "Shapes/particule.h"
+#include "Shapes/particlegenerator.h"
 
 #include <iostream>
 
@@ -17,6 +18,7 @@ const GLfloat g_AngleSpeed = 10.0f;
 
 Basis* g_Basis;
 Particule* g_Particule;
+ParticleGenerator* g_ParticuleGenerator;
 
 
 TP01::TP01()
@@ -42,8 +44,13 @@ TP01::initializeObjects()
 	glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
 	glEnable( GL_DEPTH_TEST );
 
+    //ParticleGenerator particleGenerator;
+
+    g_ParticuleGenerator->initializeParticles();
+
 	// Chargement des shaders
     createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/color" );
+    createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/test" );
 
     cout << "Shader color: ";
     if (useShader( "color" ))
@@ -59,6 +66,7 @@ TP01::initializeObjects()
 }
 
 
+
 void
 TP01::render()
 {
@@ -72,7 +80,8 @@ TP01::render()
 		rotate( angle2, 1, 0, 0 );
 
         g_Basis->draw();
-        g_Particule->draw();
+        //g_Particule->draw();
+        g_ParticuleGenerator->drawParticles();
 	popMatrix();
 }
 

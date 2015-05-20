@@ -21,5 +21,6 @@ Object3D::draw()
         m_Framework->transmitMVP( var_id );
         //drawShape( shader_name );
         drawShape( "color" );
+        //drawShape();
     }
 }

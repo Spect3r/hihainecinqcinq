@@ -16,6 +16,7 @@ class TP01 : public GlWindow
 		*/
 		bool initializeObjects();
 
+
 		/*!
 		*\brief Rendu de la scène.
 		*/
