@@ -15,8 +15,8 @@ class Object3D
         void draw(const char* shader_name);
 
 	protected:
-        virtual void drawShape() = 0;
-        //virtual void drawShape(const char* = NULL) = 0;
+        //virtual void drawShape() = 0;
+        virtual void drawShape(const char* = NULL) = 0;
 
 	protected:
 		static AbstractFramework* m_Framework;

@@ -27,11 +27,18 @@ int LastUsedParticle = 0;
     return 0; // Toutes les particules sont prises, écrase la première
 }*/
 
+GLfloat tabColors[] =
+{
+   //myRand(0.0,1.0),myRand(0.0,1.0),myRand(0.0,1.0),	// Red
+    1,0,0,
+};
 
-/*GLuint tabIndices[] =
+
+
+GLuint tabIndices[] =
 {
     0 // par un TRIANGLE_STRIP, tracera les deux triangles formant la particule
-};*/
+};
 
 
 
@@ -69,7 +76,7 @@ Particule::~Particule()
 
 }
 
-/*void
+void
 Particule::drawShape()
 {
    GLint var1 = glGetAttribLocation( m_Framework->getCurrentShaderId(), "position" );
@@ -102,6 +109,6 @@ void Particule::drawShape( const char* shader_name )
     glDrawElements( GL_POINTS, 1, GL_UNSIGNED_INT, tabIndices );
     glDisableVertexAttribArray( 0 );
     glDisableVertexAttribArray( 1 );
-}*/
+}
 
 

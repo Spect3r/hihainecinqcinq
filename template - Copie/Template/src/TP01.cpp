@@ -18,24 +18,22 @@ const GLfloat g_AngleSpeed = 10.0f;
 
 Basis* g_Basis;
 Particule* g_Particule;
-ParticleGenerator* g_ParticleGenerator;
+ParticleGenerator* g_ParticuleGenerator;
 
 
 TP01::TP01()
 {
 	setWindowTitle(trUtf8("IN55-TP01"));
 
-    //g_Basis = new Basis( 10.0 );
-   // g_Particule = new Particule();
-    g_ParticleGenerator = new ParticleGenerator();
+    g_Basis = new Basis( 10.0 );
+    g_Particule = new Particule();
 }
 
 
 TP01::~TP01()
 {
     delete g_Basis;
-   // delete g_Particule;
-    delete g_ParticleGenerator;
+    delete g_Particule;
 }
 
 
@@ -47,13 +45,12 @@ TP01::initializeObjects()
 	glEnable( GL_DEPTH_TEST );
 
     //ParticleGenerator particleGenerator;
-    cout << "initialise particule";
-    g_ParticleGenerator->initializeParticles();
-    cout << "end initialise particule";
+
+    g_ParticuleGenerator->initializeParticles();
 
 	// Chargement des shaders
     createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/color" );
-    //createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/test" );
+    createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/test" );
 
     cout << "Shader color: ";
     if (useShader( "color" ))
@@ -73,7 +70,6 @@ TP01::initializeObjects()
 void
 TP01::render()
 {
-    std::cout<<"debut render";
 	// Initialisation de la caméra
 	lookAt( 0, 5, 30, 0, 0, 0 );
 
@@ -83,12 +79,9 @@ TP01::render()
 		rotate( angle1, 0, 1, 0 );
 		rotate( angle2, 1, 0, 0 );
 
-       // g_Basis->draw();
+        g_Basis->draw();
         //g_Particule->draw();
-        std::cout<<"Essai draw particule";
-        g_ParticleGenerator->drawParticles();
-        std::cout<<" end Essai draw particule";
-        g_ParticleGenerator->draw();
+        g_ParticuleGenerator->drawParticles();
 	popMatrix();
 }
 

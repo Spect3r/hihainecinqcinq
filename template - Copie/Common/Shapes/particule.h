@@ -2,9 +2,8 @@
 #define PARTICULE_H
 
 #include "Object3D.h"
-#include "Vectors.h"
 
-class Particule //: public Object3D
+class Particule : public Object3D
 {
 public:
     Particule();
@@ -16,8 +15,8 @@ public:
 
 
 protected :
-   /* void drawShape();
-    void drawShape( const char* shader_name );*/
+    void drawShape();
+    void drawShape( const char* shader_name );
 
 public :
     bool active; // Active (1=Oui/0=Non)
@@ -27,9 +26,7 @@ public :
     GLfloat tabVertices[]; // nos vertices
     GLuint tabIndices[];
     GLuint tabIndices2[];*/
-    Vec3 position; // Position
-    //vector<float> color;
-    Vec3 color;
+    //vec3 position; // Position
     GLdouble xi, yi, zi; // Vecteur de déplacement
     GLdouble xg, yg, zg; // Gravité
     GLdouble x, y, z;
