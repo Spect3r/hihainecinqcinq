@@ -423,7 +423,10 @@ obj/TP01.o: src/TP01.cpp ../Common/Shapes/Basis.h \
 		../Common/Object3D.h \
 		../Common/AbstractFramework.h \
 		../glew-mingw/include/GL/glew.h \
-		../Common/Shapes/particule.h
+		../Common/Shapes/particule.h \
+		../Common/Vectors.h \
+		../Common/Types.h \
+		../Common/Shapes/particlegenerator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj\TP01.o src\TP01.cpp
 
 obj/main.o: src/main.cpp src/TP01.h \
@@ -562,10 +565,18 @@ obj/main.o: src/main.cpp src/TP01.h \
 obj/particule.o: ../Common/Shapes/particule.cpp ../Common/Shapes/particule.h \
 		../Common/Object3D.h \
 		../Common/AbstractFramework.h \
-		../glew-mingw/include/GL/glew.h
+		../glew-mingw/include/GL/glew.h \
+		../Common/Vectors.h \
+		../Common/Types.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj\particule.o ..\Common\Shapes\particule.cpp
 
-obj/particlegenerator.o: ../Common/Shapes/particlegenerator.cpp ../Common/Shapes/particlegenerator.h
+obj/particlegenerator.o: ../Common/Shapes/particlegenerator.cpp ../Common/Shapes/particlegenerator.h \
+		../Common/Object3D.h \
+		../Common/AbstractFramework.h \
+		../glew-mingw/include/GL/glew.h \
+		../Common/Vectors.h \
+		../Common/Types.h \
+		../Common/Shapes/particule.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obj\particlegenerator.o ..\Common\Shapes\particlegenerator.cpp
 
 ####### Install

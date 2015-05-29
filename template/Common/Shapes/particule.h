@@ -28,11 +28,10 @@ public :
     GLuint tabIndices[];
     GLuint tabIndices2[];*/
     Vec3 position; // Position
+    Vec3 velocity;
+    Vec3 gravity;
     //vector<float> color;
     Vec3 color;
-    GLdouble xi, yi, zi; // Vecteur de déplacement
-    GLdouble xg, yg, zg; // Gravité
-    GLdouble x, y, z;
 };
 
 #endif // PARTICULE_H

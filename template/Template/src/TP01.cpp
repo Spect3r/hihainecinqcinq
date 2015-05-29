@@ -47,9 +47,9 @@ TP01::initializeObjects()
 	glEnable( GL_DEPTH_TEST );
 
     //ParticleGenerator particleGenerator;
-    cout << "initialise particule";
+    //cout << "initialise particule";
     g_ParticleGenerator->initializeParticles();
-    cout << "end initialise particule";
+    //cout << "end initialise particule";
 
 	// Chargement des shaders
     createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/color" );
@@ -73,7 +73,9 @@ TP01::initializeObjects()
 void
 TP01::render()
 {
-    std::cout<<"debut render";
+
+
+    //std::cout<<"debut render";
 	// Initialisation de la caméra
 	lookAt( 0, 5, 30, 0, 0, 0 );
 
@@ -85,9 +87,9 @@ TP01::render()
 
        // g_Basis->draw();
         //g_Particule->draw();
-        std::cout<<"Essai draw particule";
+        //std::cout<<"Essai draw particule";
         g_ParticleGenerator->drawParticles();
-        std::cout<<" end Essai draw particule";
+        //std::cout<<" end Essai draw particule";
         g_ParticleGenerator->draw();
 	popMatrix();
 }

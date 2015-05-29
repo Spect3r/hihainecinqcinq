@@ -47,21 +47,6 @@ Particule::Particule()
     //this->fade = myRand(0.01,0.05);   // Vitesse de disparition aléatoire (my rand est une fonction à créer pour la génération de nombres aléatoires….
     this->fade = 0.03;
 
-    //this->r=myRand(0.0,1.0);  // Quantité aléatoire de Rouge
-    //this->g=myRand(0.0,1.0);  // Quantité aléatoire de Vert
-    //this->b=myRand(0.0,1.0);  // Quantité aléatoire de Bleu
-
-    //this->xi = myRand(-10.0,10.0);   // Vitesse aléatoire
-    //this->yi = myRand(-10.0,10.0);
-    //this->zi = myRand(10.0,20.0);
-
-    this->xi = 5;   // Vitesse aléatoire
-    this->yi = 2;
-    this->zi = -8;
-
-    this->xg = 0.0;       // Gravité dirigée selon l"axe -Z
-    this->yg = 0.0;
-    this->zg = -1.0;
 }
 
 Particule::~Particule()
