@@ -23,7 +23,8 @@ HEADERS += \
     ../Common/Shapes/Basis.h \
     src/TP01.h \
     ../Common/Shapes/particule.h \
-    ../Common/Shapes/particlegenerator.h
+    ../Common/Shapes/particlegenerator.h \
+    ../Common/Shapes/camera.h
 
 SOURCES += \
     ../Common/GlFramework.cpp \
@@ -34,4 +35,5 @@ SOURCES += \
     src/TP01.cpp \
     src/main.cpp \
     ../Common/Shapes/particule.cpp \
-    ../Common/Shapes/particlegenerator.cpp
+    ../Common/Shapes/particlegenerator.cpp \
+    ../Common/Shapes/camera.cpp

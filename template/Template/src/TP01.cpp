@@ -4,6 +4,7 @@
 #include "Shapes/Basis.h"
 #include "Shapes/particule.h"
 #include "Shapes/particlegenerator.h"
+#include "Shapes/camera.h"
 
 #include <iostream>
 
@@ -19,6 +20,7 @@ const GLfloat g_AngleSpeed = 10.0f;
 Basis* g_Basis;
 Particule* g_Particule;
 ParticleGenerator* g_ParticleGenerator;
+Camera* g_Camera;
 
 
 TP01::TP01()
@@ -28,6 +30,7 @@ TP01::TP01()
     //g_Basis = new Basis( 10.0 );
    // g_Particule = new Particule();
     g_ParticleGenerator = new ParticleGenerator();
+    g_Camera = new Camera(Vec3(0,50,30),Vec3(0,0,0),Vec3(0,0,1));
 }
 
 
@@ -77,10 +80,13 @@ TP01::render()
 
     //std::cout<<"debut render";
 	// Initialisation de la caméra
-	lookAt( 0, 5, 30, 0, 0, 0 );
+    //lookAt( 0, 5, 30, 0, 0, 0 );
+    //lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, g_Camera->getAxeVertical().x, g_Camera->getAxeVertical().y, g_Camera->getAxeVertical().z );
 
-
-	// Rendu des objets
+    cout << "position : " << endl << "x : " <<  g_Camera->getPosition().x << endl << "y : " <<  g_Camera->getPosition().x << endl << "z : " << g_Camera->getPosition().z << endl;
+    cout << "cible : " << endl << "x : " <<  g_Camera->getPointCible().x << endl << "y : " <<  g_Camera->getPointCible().x << endl << "z : " << g_Camera->getPointCible().z << endl;
+    cout << "Axe vertical : " << endl << "x : " <<  g_Camera->getAxeVertical().x << endl << "y : " <<  g_Camera->getAxeVertical().x << endl << "z : " << g_Camera->getAxeVertical().z << endl;
+    // Rendu des objets
 	pushMatrix();
 		rotate( angle1, 0, 1, 0 );
 		rotate( angle2, 1, 0, 0 );
@@ -92,6 +98,8 @@ TP01::render()
         //std::cout<<" end Essai draw particule";
         g_ParticleGenerator->draw();
 	popMatrix();
+
+    lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, g_Camera->getAxeVertical().x, g_Camera->getAxeVertical().y, g_Camera->getAxeVertical().z);
 }
 
 
@@ -105,19 +113,25 @@ TP01::keyPressEvent( QKeyEvent* event )
 			break;
 
 		case Qt::Key_Left:
-			angle1 -= g_AngleSpeed;
+            //angle1 -= g_AngleSpeed;
+            g_Camera->deplacerGauche();
 			break;
 
 		case Qt::Key_Right:
-			angle1 += g_AngleSpeed;
+            //angle1 += g_AngleSpeed;
+            g_Camera->deplacerDroite();
 			break;
 
 		case Qt::Key_Up:
-			angle2 -= g_AngleSpeed;
+            //angle2 -= g_AngleSpeed;
+            g_Camera->deplacerAvant();
 			break;
 
 		case Qt::Key_Down:
-			angle2 += g_AngleSpeed;
+            //angle2 += g_AngleSpeed;
+            //lookAt( 0, 5, 30, 0, 0, 0 );
+            g_Camera->deplacerArriere();
+            //lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, g_Camera->getAxeVertical().x, g_Camera->getAxeVertical().y, g_Camera->getAxeVertical().z);
 			break;
 
 		case Qt::Key_R:
@@ -125,3 +139,19 @@ TP01::keyPressEvent( QKeyEvent* event )
 			break;
 	}
 }
+
+void
+TP01::mouseMoveEvent(QMouseEvent *event)
+{
+
+   // cout<<"Mouse position : x : "<<event->pos().x<<"y : "<<event->pos().y<<endl;
+
+    QCursor::pos();
+    int x = (int) event->x();
+    int y = (int) event->y();
+    //g_Camera->orienter(event->pos().x, event->pos().y);
+    //g_Camera->orienter(x,y);
+    cout<<"x : "<<x<<"y : "<<y<<endl;
+}
+
+

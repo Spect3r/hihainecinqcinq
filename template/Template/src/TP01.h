@@ -23,6 +23,8 @@ class TP01 : public GlWindow
 		void render();
 
 		void keyPressEvent(QKeyEvent *);
+        void mouseMoveEvent(QMouseEvent * event);
+
 };
 
 
