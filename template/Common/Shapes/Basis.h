@@ -12,6 +12,7 @@ class Basis : public Object3D
 
     protected:
         void drawShape(const char* shader_name);
+        void drawShape();
 
 
     protected:

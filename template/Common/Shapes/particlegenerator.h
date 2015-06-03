@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 #include "Vectors.h"
-#define MAX_PARTICLES 100
+#define MAX_PARTICLES 10000
 
 
 class ParticleGenerator : public Object3D
@@ -17,9 +17,11 @@ public:
 
     int initializeParticles();
     int drawParticles();
+    double myRand(double min, double max);
     //int tabIndices[];
 protected :
     void drawShape();
+    void drawShape(const char* shader_name);
     GLuint tabIndices[MAX_PARTICLES];
     Vec3 tabPositions[MAX_PARTICLES];
     Vec3 tabVelocities[MAX_PARTICLES];

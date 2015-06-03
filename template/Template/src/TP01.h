@@ -17,6 +17,7 @@ class TP01 : public GlWindow
 		bool initializeObjects();
 
 
+
 		/*!
 		*\brief Rendu de la scène.
 		*/
@@ -24,6 +25,7 @@ class TP01 : public GlWindow
 
 		void keyPressEvent(QKeyEvent *);
         void mouseMoveEvent(QMouseEvent * event);
+        void mousePressEvent(QMouseEvent *event);
 
 };
 

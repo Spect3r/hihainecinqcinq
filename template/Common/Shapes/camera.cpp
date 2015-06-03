@@ -149,9 +149,11 @@ void Camera::deplacerAvant()
 
     // Avancée de la caméra
 
-    m_position = m_position.operator +(m_orientation);
-    m_position.operator *=(0.9f);
-    m_pointCible = m_position.operator +(m_orientation);
+    //m_position = m_position.operator +(m_orientation);
+    //m_position.operator *=(0.9f);
+    //m_pointCible = m_position.operator +(m_orientation);
+    m_position = m_position + m_orientation;
+    m_pointCible = m_position + m_orientation;
 
 
 }
@@ -163,7 +165,7 @@ void Camera::deplacerArriere()
 
     // Recul de la caméra
 
-    m_position = m_position - m_orientation * 0.5f;
+    m_position = m_position - m_orientation;
     m_pointCible = m_position + m_orientation;
 
 
@@ -175,7 +177,7 @@ void Camera::deplacerGauche()
 
     // Deplacement gauche
 
-    m_position = m_position - m_deplacementLateral * 0.5f;
+    m_position = m_position - m_deplacementLateral;
     m_pointCible = m_position + m_orientation;
 }
 
@@ -185,7 +187,7 @@ void Camera::deplacerDroite()
 
     // Deplacement droite
 
-    m_position = m_position + m_deplacementLateral * 0.5f;
+    m_position = m_position + m_deplacementLateral;
     m_pointCible = m_position + m_orientation;
 }
 
