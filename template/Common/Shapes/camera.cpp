@@ -145,7 +145,7 @@ void Camera::orienter(int xRel, int yRel)
 
 void Camera::deplacerAvant()
 {
-    orienter(0,0);
+    //orienter(0,0);
 
     // Avancée de la caméra
 
@@ -161,7 +161,7 @@ void Camera::deplacerAvant()
 void Camera::deplacerArriere()
 {
 
-    orienter(0,0);
+    //orienter(0,0);
 
     // Recul de la caméra
 
@@ -173,7 +173,7 @@ void Camera::deplacerArriere()
 
 void Camera::deplacerGauche()
 {
-    orienter(0,0);
+    //orienter(0,0);
 
     // Deplacement gauche
 
@@ -183,7 +183,7 @@ void Camera::deplacerGauche()
 
 void Camera::deplacerDroite()
 {
-    orienter(0,0);
+    //orienter(0,0);
 
     // Deplacement droite
 

@@ -33,7 +33,8 @@ TP01::TP01()
     g_Basis = new Basis( 10.0 );
    // g_Particule = new Particule();
     g_ParticleGenerator = new ParticleGenerator();
-    g_Camera = new Camera(Vec3(0,50,30),Vec3(0,0,0),Vec3(0,0,1));
+    g_Camera = new Camera(Vec3(0,50,30),Vec3(0,0,0),Vec3(0,1,0));
+    //this->setMouseTracking(true);
 }
 
 
@@ -83,7 +84,7 @@ TP01::render()
 
     //std::cout<<"debut render";
 	// Initialisation de la caméra
-    lookAt( 0, 5, 30, 0, 0, 0 );
+    //lookAt( 0, 5, 30, 0, 0, 0 );
     //lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, g_Camera->getAxeVertical().x, g_Camera->getAxeVertical().y, g_Camera->getAxeVertical().z );
 
     //cout << "position : " << endl << "x : " <<  g_Camera->getPosition().x << endl << "y : " <<  g_Camera->getPosition().x << endl << "z : " << g_Camera->getPosition().z << endl;
@@ -102,7 +103,7 @@ TP01::render()
         g_ParticleGenerator->draw();
 	popMatrix();
 
-   // lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, g_Camera->getAxeVertical().x, g_Camera->getAxeVertical().y, g_Camera->getAxeVertical().z);
+   lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, 0,1,0);
 }
 
 
@@ -116,24 +117,24 @@ TP01::keyPressEvent( QKeyEvent* event )
 			break;
 
 		case Qt::Key_Left:
-            angle1 -= g_AngleSpeed;
-           // g_Camera->deplacerGauche();
+            //angle1 -= g_AngleSpeed;
+            g_Camera->deplacerGauche();
 			break;
 
 		case Qt::Key_Right:
-            angle1 += g_AngleSpeed;
-            //g_Camera->deplacerDroite();
+            //angle1 += g_AngleSpeed;
+            g_Camera->deplacerDroite();
 			break;
 
 		case Qt::Key_Up:
-            angle2 -= g_AngleSpeed;
-            //g_Camera->deplacerAvant();
+            //angle2 -= g_AngleSpeed;
+            g_Camera->deplacerAvant();
 			break;
 
 		case Qt::Key_Down:
-            angle2 += g_AngleSpeed;
+            //angle2 += g_AngleSpeed;
             //lookAt( 0, 5, 30, 0, 0, 0 );
-            //g_Camera->deplacerArriere();
+            g_Camera->deplacerArriere();
             //lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, g_Camera->getAxeVertical().x, g_Camera->getAxeVertical().y, g_Camera->getAxeVertical().z);
 			break;
 
@@ -149,12 +150,12 @@ TP01::mouseMoveEvent(QMouseEvent *event)
 
 
    // cout<<"Mouse position : x : "<<event->pos().x<<"y : "<<event->pos().y<<endl;
-    int x = (int) event->x();
-    int y = (int) event->y();
-    int xrel = x - 600;
-    int yrel = y - 400;
+    int xrel = (int) event->x();
+    int yrel = (int) event->y();
+    xrel = xrel - 600;
+    yrel = yrel - 400;
     //g_Camera->orienter(event->pos().x, event->pos().y);
-    //g_Camera->orienter(xrel,yrel);
+    g_Camera->orienter(xrel,yrel);
     //cout<<"xinit : "<<xinit<<"yinit : "<< yinit<<endl;
     cout<<"xrel : "<<xrel<<"yrel : "<< yrel<<endl;
 }
