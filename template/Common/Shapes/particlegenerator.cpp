@@ -1,10 +1,6 @@
 #include "particlegenerator.h"
-//#include "particule.h"
 #include <cstdlib>
 #include <iostream>
-
-
-//Particule particleContainer[MAX_PARTICLES];
 
 GLfloat time = 0;
 
