@@ -1,7 +1,6 @@
 #include "particule.h"
 #include <iostream>
 
-const GLfloat size = 0.5f;
 
 
 int LastUsedParticle = 0;

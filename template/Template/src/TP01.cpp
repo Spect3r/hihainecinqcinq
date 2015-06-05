@@ -33,7 +33,7 @@ TP01::TP01()
     g_Basis = new Basis( 10.0 );
    // g_Particule = new Particule();
     g_ParticleGenerator = new ParticleGenerator();
-    g_Camera = new Camera(Vec3(0,50,30),Vec3(0,0,0),Vec3(0,1,0));
+    g_Camera = new Camera(Vec3(0,5,5),Vec3(0,0,0),Vec3(0,1,0));
     //this->setMouseTracking(true);
 }
 
@@ -147,27 +147,32 @@ TP01::keyPressEvent( QKeyEvent* event )
 void
 TP01::mouseMoveEvent(QMouseEvent *event)
 {
+    g_Camera->xrel = event->x() - g_Camera->xrel;
+    g_Camera->yrel = event->y() - g_Camera->yrel;
 
-
-   // cout<<"Mouse position : x : "<<event->pos().x<<"y : "<<event->pos().y<<endl;
-    int xrel = (int) event->x();
-    int yrel = (int) event->y();
-    xrel = xrel - 600;
-    yrel = yrel - 400;
     //g_Camera->orienter(event->pos().x, event->pos().y);
-    g_Camera->orienter(xrel,yrel);
+    g_Camera->orienter(g_Camera->xrel,g_Camera->yrel);
+    g_Camera->xrel = event->x();
+    g_Camera->yrel = event->y();
     //cout<<"xinit : "<<xinit<<"yinit : "<< yinit<<endl;
-    cout<<"xrel : "<<xrel<<"yrel : "<< yrel<<endl;
+    cout<<"xrel : "<<g_Camera->xrel<<"yrel : "<< g_Camera->yrel<<endl;
 }
 
 void
 TP01::mousePressEvent(QMouseEvent *event)
 {
-    int xinit = (int) event->x();
-    int yinit = (int) event->y();
-    cout<<"hehe"<<endl;
+    if (g_Camera->firstPress == false)
+    {
+        g_Camera->xrel = event->x();
+        g_Camera->yrel = event->y();
+    }
+    else
+    {
+        g_Camera->xrel = 600;
+        g_Camera->yrel = 400;
+        g_Camera->firstPress = false;
+    }
 }
-
 
 
 

@@ -18,7 +18,6 @@ public:
     int initializeParticles();
     int drawParticles();
     double myRand(double min, double max);
-    //int tabIndices[];
 protected :
     void drawShape();
     void drawShape(const char* shader_name);
@@ -26,11 +25,8 @@ protected :
     Vec3 tabPositions[MAX_PARTICLES];
     Vec3 tabVelocities[MAX_PARTICLES];
     Vec3 tabColors[MAX_PARTICLES];
-    Vec3 tabGravities[MAX_PARTICLES];
     GLfloat tabLife[MAX_PARTICLES];
     GLfloat tabFade[MAX_PARTICLES];
-
-
 
 };
 

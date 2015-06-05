@@ -25,7 +25,7 @@ class TP01 : public GlWindow
 
 		void keyPressEvent(QKeyEvent *);
         void mouseMoveEvent(QMouseEvent * event);
-        void mousePressEvent(QMouseEvent *event);
+        void mousePressEvent(QMouseEvent * event);
 
 };
 

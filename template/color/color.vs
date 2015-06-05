@@ -23,13 +23,15 @@ void main()
 //{
   float deltaTime = (2.0 - life)/fade;
 
+  vel.y += -0.2*deltaTime;//grav.y*deltaTime;
+
   pos.x += (vel.x/1000)*deltaTime;
   pos.y += (vel.y/1000)*deltaTime;
   pos.z += (vel.z/1000)*deltaTime;
 
-  vel.x += grav.x*deltaTime;
-  vel.y += grav.y*deltaTime;
-  vel.z += grav.z*deltaTime;
+  
+  
+
 // }
 //else
   if(lifeOut < 0)

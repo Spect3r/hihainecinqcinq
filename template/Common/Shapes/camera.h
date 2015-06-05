@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "Vectors.h"
+#include <GL/gl.h>
 
 class Camera
 {
@@ -11,7 +12,6 @@ public:
     Camera(Vec3 position, Vec3 pointCible);
     ~Camera();
     void orienter(int xRel, int yRel);
-    //void deplacer(Input const &input);
     void deplacerAvant();
     void deplacerArriere();
     void deplacerGauche();
@@ -19,6 +19,9 @@ public:
     Vec3 getPosition();
     Vec3 getPointCible();
     Vec3 getAxeVertical();
+    GLuint xrel;
+    GLuint yrel;
+    bool firstPress;
 
 private:
     // Attributs d'orientation

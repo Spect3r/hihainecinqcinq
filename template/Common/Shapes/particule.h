@@ -9,11 +9,6 @@ class Particule //: public Object3D
 public:
     Particule();
     virtual ~Particule();
-   // double myRand(double min, double max);
-    //int FindUnusedParticle();
-
-
-
 
 protected :
    /* void drawShape();
