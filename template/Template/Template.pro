@@ -4,7 +4,7 @@
 
 CONFIG += console release
 QT += core gui opengl
-TARGET = TP01
+TARGET = simulator
 TEMPLATE = app
 
 DEPENDPATH += src
@@ -21,9 +21,9 @@ HEADERS += \
     ../Common/LF_String.h \
     ../Common/Object3D.h \
     ../Common/Shapes/Basis.h \
-    src/TP01.h \
     ../Common/Shapes/particlegenerator.h \
     ../Common/Shapes/camera.h \
+    src/simulator.h \
 
 SOURCES += \
     ../Common/GlFramework.cpp \
@@ -31,7 +31,7 @@ SOURCES += \
     ../Common/LF_String.cpp \
     ../Common/Object3D.cpp \
     ../Common/Shapes/Basis.cpp \
-    src/TP01.cpp \
     src/main.cpp \
     ../Common/Shapes/particlegenerator.cpp \
     ../Common/Shapes/camera.cpp \
+    src/simulator.cpp \

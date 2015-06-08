@@ -27,6 +27,8 @@ protected :
     Vec3 tabColors[MAX_PARTICLES];
     GLfloat tabLife[MAX_PARTICLES];
     GLfloat tabFade[MAX_PARTICLES];
+    GLfloat tabSize[MAX_PARTICLES];
+    float theta;
 
 };
 

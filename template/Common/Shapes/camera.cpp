@@ -108,25 +108,27 @@ void Camera::deplacerDroite()
 
 }
 
-/*
-void Camera::deplacerHaut()
-{
-    //orienter(0,0);
-
-    // Deplacement haut
-    m_position = m_position + m_axeVertical*0.5f;
-    //m_pointCible = m_position + m_orientation;
-
+GLuint Camera::getXrel(){
+    return this->xrel;
 }
 
-void Camera::deplacerBas()
-{
-    //orienter(0,0);
-
-    // Deplacement bas
-    m_position = m_position - m_axeVertical*0.5f;
-    //m_pointCible = m_position + m_orientation;
-
+void Camera::setXrel(GLuint xrel){
+    this->xrel = xrel;
 }
-*/
 
+GLuint Camera::getYrel(){
+    return this->yrel;
+}
+
+void Camera::setYrel(GLuint yrel){
+    this->yrel = yrel;
+}
+
+
+bool Camera::isFirstPress(){
+    return this->firstPress;
+}
+
+void Camera::setFirstPress(bool booleen){
+    this->firstPress = booleen;
+}

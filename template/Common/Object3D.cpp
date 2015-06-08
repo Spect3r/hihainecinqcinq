@@ -12,9 +12,9 @@ Object3D::setFramework( AbstractFramework* fw )
 
 
 void
-Object3D::draw()
+Object3D::draw(GLint shaderName)
 {
-    if (m_Framework->useShader( "color" ))
+    if (m_Framework->useShader( shaderName ))
     {
         m_Framework->computeAncillaryMatrices();
         GLint var_id = glGetUniformLocation( m_Framework->getCurrentShaderId(), "MVP" );

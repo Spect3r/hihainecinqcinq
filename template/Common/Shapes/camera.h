@@ -19,9 +19,14 @@ public:
     Vec3 getPosition();
     Vec3 getPointCible();
     Vec3 getAxeVertical();
-    GLuint xrel;
-    GLuint yrel;
-    bool firstPress;
+    GLuint getXrel();
+    GLuint getYrel();
+    void setXrel(GLuint xrel);
+    void setYrel(GLuint yrel);
+    bool isFirstPress();
+    void setFirstPress(bool booleen);
+
+
 
 private:
     // Attributs d'orientation
@@ -36,6 +41,10 @@ private:
     //Pour fonction lookAt
     Vec3 m_position;
     Vec3 m_pointCible;
+
+    GLuint xrel;
+    GLuint yrel;
+    bool firstPress;
 
 };
 

@@ -2,21 +2,8 @@
 #include <cstdlib>
 #include <iostream>
 
-GLfloat time = 0;
-
 ParticleGenerator::ParticleGenerator()
 {
-    for( GLuint i = 0; i < MAX_PARTICLES; i++ )
-    {
-        tabIndices[i] = i;
-        tabColors[i].x = myRand(0.0, 1.0);
-        tabColors[i].y = myRand(0.0, 1.0);
-        tabColors[i].z = myRand(0.0, 1.0);
-        tabPositions[i].x = 0.0;
-        tabPositions[i].y = 0.0;
-        tabPositions[i].z = 0.0;
-    }
-
 }
 
 ParticleGenerator::~ParticleGenerator()
@@ -34,21 +21,43 @@ ParticleGenerator::initializeParticles()
 
     for(int i=0; i<MAX_PARTICLES; i++)   // Boucle sur toutes les particules
     {
-
+        tabIndices[i] = i;
         tabLife[i] = 1.0; // Maximum de vie
 
-        tabFade[i] = myRand(0.01,0.05);  // Vitesse de disparition aléatoire
+        /*if(tabColors[i].x < 1.0)
+            tabColors[i].x += 0.03;
+
+        else
+            tabColors[i].x = 1.0;
+
+        if(tabColors[i].y < 1.0)
+            tabColors[i].y += 0.03;
+
+        else
+            tabColors[i].y = 1.0;
+
+        if(tabColors[i].z < 1.0)
+            tabColors[i].z += 0.03;
+
+        else
+            tabColors[i].z = 1.0;*/
+
+        tabFade[i] = myRand(0.01,0.1);  // Vitesse de disparition aléatoire
 
         // Initialisation à l'origine
         tabPositions[i].x = 0.0;
         tabPositions[i].y = 0.0;
         tabPositions[i].z = 0.0;
 
+        // Calcul Theta
+        theta = myRand(1.0, 360.0);
 
         // Vitesse aléatoire
-        tabVelocities[i].x = myRand(-3.0,3.0);
-        tabVelocities[i].y = myRand(10.0,20.0); //myRand(-10.0,10.0);
-        tabVelocities[i].z = myRand(-3.0,3.0);
+        tabVelocities[i].x = myRand(0.1,1.5)*cos(theta);
+        tabVelocities[i].y = myRand(15.0,20.0);
+        tabVelocities[i].z = myRand(0.1,1.5)*sin(theta);
+
+        tabSize[i] = myRand(0.5,1.5);
 
 
     }
@@ -59,15 +68,40 @@ ParticleGenerator::drawParticles()
 {   for(int i=0; i<MAX_PARTICLES; i++) // Pour chaque particule
     {
         if(tabLife[i] > 0)
-        {
+        {  
             tabLife[i] -= tabFade[i];
+
+           /* if(tabColors[i].x < 1.0)
+                tabColors[i].x += 0.03;
+
+            else
+                tabColors[i].x = 1.0;
+
+            if(tabColors[i].y < 1.0)
+                tabColors[i].y += 0.03;
+
+            else
+                tabColors[i].y = 1.0;
+
+            if(tabColors[i].z < 1.0)
+                tabColors[i].z += 0.03;
+
+            else
+                tabColors[i].z = 1.0;*/
         }
         else
         {
+            // Calcul Theta
+            theta = myRand(1.0, 360.0);
+
             tabLife[i] = 1.0;
-            tabVelocities[i].x = myRand(-3.0,3.0);
-            tabVelocities[i].y = myRand(10.0,20.0);
-            tabVelocities[i].z = myRand(-3.0,3.0);
+            tabVelocities[i].x = myRand(0.1,1.5)*cos(theta);
+            tabVelocities[i].y = myRand(15.0,20.0);
+            tabVelocities[i].z = myRand(0.1,1.5)*sin(theta);
+            /*tabColors[i].x = 0.41;
+            tabColors[i].y = 0.5;
+            tabColors[i].z = 0.71;*/
+            tabSize[i] = myRand(0.5,2);
         }
     }
 
@@ -77,7 +111,7 @@ ParticleGenerator::drawParticles()
 void
 ParticleGenerator::drawShape()
 {
-
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
    GLint var1 = glGetAttribLocation( m_Framework->getCurrentShaderId(), "position" );
    glEnableVertexAttribArray( var1 );
@@ -99,13 +133,17 @@ ParticleGenerator::drawShape()
    glEnableVertexAttribArray( var5 );
    glVertexAttribPointer( var5, 1, GL_FLOAT, GL_FALSE, 0, tabFade );
 
+   GLfloat var6 = glGetAttribLocation( m_Framework->getCurrentShaderId(), "size" );
+   glEnableVertexAttribArray( var6 );
+   glVertexAttribPointer( var6, 1, GL_FLOAT, GL_FALSE, 0, tabSize );
+
    glDrawElements( GL_POINTS, MAX_PARTICLES, GL_UNSIGNED_INT, tabIndices ); // trace tous les points
    glDisableVertexAttribArray( var1 );
    glDisableVertexAttribArray( var2 );
    glDisableVertexAttribArray( var3 );
    glDisableVertexAttribArray( var4 );
    glDisableVertexAttribArray( var5 );
-
+   glDisableVertexAttribArray( var6 );
 }
 
 void

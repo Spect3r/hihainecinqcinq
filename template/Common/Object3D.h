@@ -12,7 +12,7 @@ class Object3D
 
 	public:
 		void draw();
-        void draw(const char* shader_name);
+        void draw(GLint shaderName);
 
 	protected:
         virtual void drawShape() = 0;

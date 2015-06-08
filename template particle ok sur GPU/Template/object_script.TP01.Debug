@@ -1,0 +1,12 @@
+INPUT(
+./obj\GlFramework.o
+./obj\GlWindow.o
+./obj\LF_String.o
+./obj\Object3D.o
+./obj\Basis.o
+./obj\TP01.o
+./obj\main.o
+./obj\particule.o
+./obj\particlegenerator.o
+./obj\camera.o
+);
