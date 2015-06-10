@@ -24,6 +24,10 @@ ParticleGenerator::initializeParticles()
         tabIndices[i] = i;
         tabLife[i] = 1.0; // Maximum de vie
 
+        tabColors[i].x = 0.41;
+        tabColors[i].y = 0.5;
+        tabColors[i].z = 0.71;
+
         /*if(tabColors[i].x < 1.0)
             tabColors[i].x += 0.03;
 

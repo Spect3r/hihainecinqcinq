@@ -23,6 +23,7 @@ HEADERS += \
     ../Common/Shapes/Basis.h \
     ../Common/Shapes/particlegenerator.h \
     ../Common/Shapes/camera.h \
+    ../Common/Shapes/fireworks.h \
     src/simulator.h \
 
 SOURCES += \
@@ -34,4 +35,5 @@ SOURCES += \
     src/main.cpp \
     ../Common/Shapes/particlegenerator.cpp \
     ../Common/Shapes/camera.cpp \
+    ../Common/Shapes/fireworks.cpp \
     src/simulator.cpp \

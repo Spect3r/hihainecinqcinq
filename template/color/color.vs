@@ -26,23 +26,23 @@ void main()
   if(life > 0)
   {
 
-    if(col.x < 1.0)
-        col.x += 0.03*deltaTime;
+    if(col.x < 1.0f)
+        col.x += 0.03f*deltaTime/3.5;
 
     else
-        col.x = 1.0;
+        col.x = 1.0f;
 
-    if(col.y < 1.0)
-        col.y += 0.03*deltaTime;
-
-    else
-        col.y = 1.0;
-
-    if(col.z < 1.0)
-        col.z += 0.03*deltaTime;
+    if(col.y < 1.0f)
+        col.y += 0.03f*deltaTime/3.5;
 
     else
-        col.z = 1.0;
+        col.y = 1.0f;
+
+    if(col.z < 1.0f)
+        col.z += 0.03f*deltaTime/3.5;
+
+    else
+        col.z = 1.0f;
 
     vel.y += -0.08*deltaTime;//grav.y*deltaTime;
 
@@ -57,9 +57,9 @@ void main()
     pos.x = 0;
     pos.y = 0;
     pos.z = 0;
-    col.x = 0.41;
-    col.y = 0.5;
-    col.z = 0.71;
+    col.x = 0.41f;
+    col.y = 0.5f;
+    col.z = 0.71f;
     lifeOut = 1.0;
   }
 

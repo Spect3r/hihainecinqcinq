@@ -1,0 +1,12 @@
+INPUT(
+./obj\GlFramework.o
+./obj\GlWindow.o
+./obj\LF_String.o
+./obj\Object3D.o
+./obj\Basis.o
+./obj\main.o
+./obj\particlegenerator.o
+./obj\camera.o
+./obj\fireworks.o
+./obj\simulator.o
+);

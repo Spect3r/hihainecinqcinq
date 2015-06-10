@@ -4,6 +4,7 @@
 #include "Shapes/Basis.h"
 #include "Shapes/particlegenerator.h"
 #include "Shapes/camera.h"
+#include "Shapes/fireworks.h"
 
 #include <QDesktopWidget>
 #include <QMainWindow>
@@ -25,6 +26,7 @@ const GLfloat g_AngleSpeed = 10.0f;
 
 Basis* g_Basis;
 ParticleGenerator* g_ParticleGenerator;
+Fireworks* g_Fireworks;
 Camera* g_Camera;
 
 
@@ -34,6 +36,7 @@ simulator::simulator()
     setFixedSize(1200,800);
     g_Basis = new Basis( 10.0 );
     g_ParticleGenerator = new ParticleGenerator();
+    g_Fireworks = new Fireworks();
     g_Camera = new Camera(Vec3(0,5,5),Vec3(0,0,0),Vec3(0,1,0));
 }
 
@@ -42,6 +45,7 @@ simulator::~simulator()
 {
     delete g_Basis;
     delete g_ParticleGenerator;
+    delete g_Fireworks;
 }
 
 
@@ -54,10 +58,16 @@ simulator::initializeObjects()
 
     // Initialisation des particules
     g_ParticleGenerator->initializeParticles();
+    cout<<"Initialize"<<endl;
+    g_Fireworks->initializeParticles();
+    cout<<"Initialize2"<<endl;
 
 	// Chargement des shaders
-    fontaineShader = createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/color" );
-    artificeShader = createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/artifice" );
+    //fontaineShader = createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/color" );
+    fontaineShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/color");
+    //artificeShader = createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/artifice" );
+    artificeShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/artifice");
+    cout<<"pas OK"<<endl;
 
     cout << "Shader fontaine: ";
     if (useShader( "color" ))
@@ -79,6 +89,18 @@ simulator::initializeObjects()
         cout << "NOT Loaded!" << endl;
     }
 
+    QPixmap pixmap( "yes.png" );
+
+    const int NBR_TEXTURES = 10 ;
+    GLuint texId[NBR_TEXTURES];
+    glGenTextures( NBR_TEXTURES, texId );
+    // Initialisation de la première texture stockée dans l'unité de texture #0
+//    glActiveTexture( GL_TEXTURE0 );
+    glBindTexture( GL_TEXTURE_2D, texId[0] );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexImage2D( GL_TEXTURE_2D,   0,   GL_RGBA, pixmap.width(), pixmap.height(), 0, GL_BGRA, GL_UNSIGNED_BYTE, pixmap.toImage().bits() );
+
 
 	return true;
 }
@@ -94,8 +116,16 @@ simulator::render()
 		rotate( angle2, 1, 0, 0 );
 
         //g_Basis->draw();
-        g_ParticleGenerator->drawParticles();
-        g_ParticleGenerator->draw(currentShader);
+        if(currentShader == fontaineShader){
+            g_ParticleGenerator->drawParticles();
+            g_ParticleGenerator->draw(currentShader);
+        }
+        else if(currentShader == artificeShader)
+        {
+            g_Fireworks->drawParticles();
+            g_Fireworks->draw(currentShader);
+        }
+
 	popMatrix();
 
     // Initialisation de la caméra
