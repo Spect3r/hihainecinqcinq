@@ -1,12 +1,8 @@
 #version 120
 
-uniform sampler2D texId;
-
-in vec2 fUV;
-
-out vec4 fragColor;
+varying float transparency;
 
 void main()
 {
-  fragColor = texture2D( texId, fUV );
+  gl_FragColor = vec4( gl_Color.rgb, transparency );
 }

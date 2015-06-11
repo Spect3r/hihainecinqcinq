@@ -108,7 +108,7 @@ Simulator::initializeObjects()
 
     QPixmap pixmap( "/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/yes.png" );
 
-    const int NBR_TEXTURES = 10 ;
+    const int NBR_TEXTURES = MAX_PARTICLES;
     GLuint texId[NBR_TEXTURES];
     glGenTextures( NBR_TEXTURES, texId );
     // Initialisation de la première texture stockée dans l'unité de texture #0
@@ -141,6 +141,7 @@ Simulator::render()
         {
             g_Fireworks->drawParticles();
             g_Fireworks->draw(currentShader);
+            g_Fireworks->drawStick();
         }
         else if(currentShader == tornadoShader)
         {
