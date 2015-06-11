@@ -19,7 +19,6 @@ void main()
   vec3 grav = gravity;
   float lifeOut = life;
 
- 
     
   gl_PointSize = size*2;
   gl_Position = MVP * vec4( pos, 1.0f );

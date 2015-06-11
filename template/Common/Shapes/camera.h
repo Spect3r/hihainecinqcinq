@@ -29,19 +29,20 @@ public:
 
 
 private:
-    // Attributs d'orientation
+    // Attributs d'orientation.
     float m_phi;
     float m_theta;
     Vec3 m_orientation;
 
-    // Attributs de déplacement
+    // Attributs de déplacement.
     Vec3 m_axeVertical;
     Vec3 m_deplacementLateral;
 
-    //Pour fonction lookAt
+    //Pour fonction lookAt.
     Vec3 m_position;
     Vec3 m_pointCible;
 
+    // Pour récupérer les x et y relatifs.
     GLuint xrel;
     GLuint yrel;
     bool firstPress;

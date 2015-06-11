@@ -1,15 +1,15 @@
-﻿#ifndef simulator_h
-#define simulator_h
+﻿#ifndef Simulator_h
+#define Simulator_h
 
 
 #include "GlWindow.h"
 
 
-class simulator : public GlWindow
+class Simulator : public GlWindow
 {
 	public:
-        simulator();
-        ~simulator();
+        Simulator();
+        ~Simulator();
 
 		/*!
 		*\brief Initialization des objets.

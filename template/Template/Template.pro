@@ -25,6 +25,7 @@ HEADERS += \
     ../Common/Shapes/camera.h \
     ../Common/Shapes/fireworks.h \
     src/simulator.h \
+    ../Common/Shapes/tornado.h \
 
 SOURCES += \
     ../Common/GlFramework.cpp \
@@ -37,3 +38,4 @@ SOURCES += \
     ../Common/Shapes/camera.cpp \
     ../Common/Shapes/fireworks.cpp \
     src/simulator.cpp \
+    ../Common/Shapes/tornado.cpp

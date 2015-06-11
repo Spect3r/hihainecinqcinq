@@ -22,24 +22,36 @@ Camera::~Camera()
 
 }
 
+/*
+ * Récupère la position de la caméra.
+ */
 Vec3 Camera::getPosition()
 {
     return this->m_position;
 }
 
+/*
+ * Récupère le point ciblé par la caméra.
+ */
 Vec3 Camera::getPointCible()
 {
     return this->m_pointCible;
 }
 
+/*
+ * Récupère l'axe vertical de la caméra.
+ */
 Vec3 Camera::getAxeVertical()
 {
     return this->m_axeVertical;
 }
 
+/*
+ * Pour orienter la caméra dans l'axe désigné par la souris.
+ */
 void Camera::orienter(int xRel, int yRel)
 {
-    // Modification des angles
+    // calcul des angles
 
     m_phi += -yRel * 0.08;
     m_theta += -xRel * 0.08;
@@ -67,7 +79,7 @@ void Camera::orienter(int xRel, int yRel)
     m_deplacementLateral = m_axeVertical.crossProduct(m_orientation);
     m_deplacementLateral.normalize();
 
-    // Calcul du point ciblé pour OpenGL
+    // Calcul du point ciblé
 
     m_pointCible = m_position.operator +(m_orientation);
 }

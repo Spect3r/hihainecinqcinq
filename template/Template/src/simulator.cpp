@@ -5,6 +5,7 @@
 #include "Shapes/particlegenerator.h"
 #include "Shapes/camera.h"
 #include "Shapes/fireworks.h"
+#include "Shapes/tornado.h"
 
 #include <QDesktopWidget>
 #include <QMainWindow>
@@ -19,6 +20,7 @@ GLfloat angle2 = 20.0f;
 
 GLint fontaineShader;
 GLint artificeShader;
+GLint tornadoShader;
 GLint currentShader = fontaineShader;
 
 const GLfloat g_AngleSpeed = 10.0f;
@@ -27,30 +29,33 @@ const GLfloat g_AngleSpeed = 10.0f;
 Basis* g_Basis;
 ParticleGenerator* g_ParticleGenerator;
 Fireworks* g_Fireworks;
+Tornado* g_Tornado;
 Camera* g_Camera;
 
 
-simulator::simulator()
+Simulator::Simulator()
 {
     setWindowTitle(trUtf8("Simulateur de particules - IN55"));
     setFixedSize(1200,800);
     g_Basis = new Basis( 10.0 );
     g_ParticleGenerator = new ParticleGenerator();
     g_Fireworks = new Fireworks();
-    g_Camera = new Camera(Vec3(0,5,5),Vec3(0,0,0),Vec3(0,1,0));
+    g_Tornado = new Tornado();
+    g_Camera = new Camera(Vec3(1,0.5,1.5),Vec3(0,0.6,0),Vec3(0,1,0));
 }
 
 
-simulator::~simulator()
+Simulator::~Simulator()
 {
     delete g_Basis;
     delete g_ParticleGenerator;
     delete g_Fireworks;
+    delete g_Tornado;
 }
 
 
 bool
-simulator::initializeObjects()
+Simulator::initializeObjects()
 {
 	// Fond gris
 	glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
@@ -61,16 +66,18 @@ simulator::initializeObjects()
     cout<<"Initialize"<<endl;
     g_Fireworks->initializeParticles();
     cout<<"Initialize2"<<endl;
+    g_Tornado->initializeParticles();
+    cout<<"Initialize3"<<endl;
 
 	// Chargement des shaders
-    //fontaineShader = createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/color" );
-    fontaineShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/color");
-    //artificeShader = createShader( "/Users/Julien/Documents/UTBM/IN55/Projet/template/color/artifice" );
+    fontaineShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/fontaine");
     artificeShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/artifice");
+    tornadoShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/tornado");
+
     cout<<"pas OK"<<endl;
 
     cout << "Shader fontaine: ";
-    if (useShader( "color" ))
+    if (useShader( "fontaine" ))
     {
         cout << "Loaded!" << endl;
     }
@@ -89,7 +96,17 @@ simulator::initializeObjects()
         cout << "NOT Loaded!" << endl;
     }
 
-    QPixmap pixmap( "yes.png" );
+    cout << "Shader tornado : ";
+    if (useShader( "tornado" ))
+    {
+        cout << "Loaded!" << endl;
+    }
+    else
+    {
+        cout << "NOT Loaded!" << endl;
+    }
+
+    QPixmap pixmap( "/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/yes.png" );
 
     const int NBR_TEXTURES = 10 ;
     GLuint texId[NBR_TEXTURES];
@@ -108,7 +125,7 @@ simulator::initializeObjects()
 
 
 void
-simulator::render()
+Simulator::render()
 {
     // Rendu des objets
 	pushMatrix();
@@ -125,16 +142,20 @@ simulator::render()
             g_Fireworks->drawParticles();
             g_Fireworks->draw(currentShader);
         }
-
+        else if(currentShader == tornadoShader)
+        {
+            g_Tornado->drawParticles();
+            g_Tornado->draw(currentShader);
+        }
 	popMatrix();
 
-    // Initialisation de la caméra
+    // Mise à jour de la position de la caméra
     lookAt( g_Camera->getPosition().x, g_Camera->getPosition().y, g_Camera->getPosition().z, g_Camera->getPointCible().x, g_Camera->getPointCible().y, g_Camera->getPointCible().z, 0,1,0);
 }
 
 
 void
-simulator::keyPressEvent( QKeyEvent* event )
+Simulator::keyPressEvent( QKeyEvent* event )
 {
 	switch( event->key())
 	{
@@ -167,11 +188,14 @@ simulator::keyPressEvent( QKeyEvent* event )
         case Qt::Key_F2:
             currentShader = artificeShader;
             break;
+        case Qt::Key_F3:
+            currentShader = tornadoShader;
+        break;
 	}
 }
 
 void
-simulator::mouseMoveEvent(QMouseEvent *event)
+Simulator::mouseMoveEvent(QMouseEvent *event)
 {
     g_Camera->setXrel(event->x() - g_Camera->getXrel());
     g_Camera->setYrel(event->y() - g_Camera->getYrel());
@@ -182,7 +206,7 @@ simulator::mouseMoveEvent(QMouseEvent *event)
 }
 
 void
-simulator::mousePressEvent(QMouseEvent *event)
+Simulator::mousePressEvent(QMouseEvent *event)
 {
     if (g_Camera->isFirstPress() == false)
     {

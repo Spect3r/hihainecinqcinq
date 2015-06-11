@@ -1,20 +1,19 @@
-#ifndef FIREWORKS_H
-#define FIREWORKS_H
-
+#ifndef TORNADO_H
+#define TORNADO_H
 
 #include "Object3D.h"
 #include <vector>
 using namespace std;
 #include "Vectors.h"
-#define MAX_PARTICLES 5
+#define MAX_PARTICLES 350000
 
 
-class Fireworks : public Object3D
+class Tornado : public Object3D
 {
 
 public:
-    Fireworks();
-    ~Fireworks();
+    Tornado();
+    ~Tornado();
 
     int initializeParticles();
     int drawParticles();
@@ -22,14 +21,15 @@ public:
 protected :
     void drawShape();
     void drawShape(const char* shader_name);
-    GLuint tabIndices[4*MAX_PARTICLES];
-    GLfloat tabVertices[12*MAX_PARTICLES];
+    GLuint tabIndices[MAX_PARTICLES];
+    Vec3 tabPositions[MAX_PARTICLES];
     Vec3 tabVelocities[MAX_PARTICLES];
+    Vec3 tabColors[MAX_PARTICLES];
     GLfloat tabLife[MAX_PARTICLES];
     GLfloat tabFade[MAX_PARTICLES];
-    GLfloat tabUv[8*MAX_PARTICLES];
-    float theta;
+    GLfloat tabSize[MAX_PARTICLES];
+    GLfloat tabTheta[MAX_PARTICLES];
 
 };
 
-#endif // FIREWORKS_H
+#endif // TORNADO_H

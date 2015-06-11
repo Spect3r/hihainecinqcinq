@@ -18,7 +18,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
-    simulator win;
+    Simulator win;
 	win.show();
 	return app.exec();
 }

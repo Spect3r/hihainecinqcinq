@@ -9,4 +9,5 @@ INPUT(
 ./obj\camera.o
 ./obj\fireworks.o
 ./obj\simulator.o
+./obj\tornado.o
 );
