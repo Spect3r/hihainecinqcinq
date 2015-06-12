@@ -1,28 +1,22 @@
-#include "particlegenerator.h"
+#include "fountain.h"
 #include <cstdlib>
 #include <iostream>
 
-ParticleGenerator::ParticleGenerator()
+Fountain::Fountain()
 {
 }
 
-ParticleGenerator::~ParticleGenerator()
+Fountain::~Fountain()
 {
 
 }
 
-/*
- * Fonction permettant d'obtenir une valeur comprise entre deux valeurs passées en paramètre
-*/
-double ParticleGenerator::myRand(double min, double max)
+double Fountain::myRand(double min, double max)
 {
     return (double) (min + ((float) rand() / RAND_MAX * (max - min + 1.0)));
 }
 
-/*
- * fonction d'initailisation des particules
-*/
-int ParticleGenerator::initializeParticles()
+int Fountain::initializeParticles()
 {
 
     for(int i=0; i<MAX_PARTICLES; i++)   // Boucle sur toutes les particules
@@ -30,7 +24,6 @@ int ParticleGenerator::initializeParticles()
         tabIndices[i] = i;
         tabLife[i] = 1.0; // Maximum de vie
 
-        //initialisation avec une couleur bleue
         tabColors[i].x = 0.41;
         tabColors[i].y = 0.5;
         tabColors[i].z = 0.71;
@@ -57,15 +50,11 @@ int ParticleGenerator::initializeParticles()
     return 0;    // Initialisation OK
 }
 
-/*
- * Fonction de mise à jour des particules
-*/
-int ParticleGenerator::drawParticles()
+int Fountain::drawParticles()
 {   for(int i=0; i<MAX_PARTICLES; i++) // Pour chaque particule
     {
         if(tabLife[i] > 0)
         {  
-            //gestion de la vie des particules
             tabLife[i] -= tabFade[i];
         }
         else
@@ -74,10 +63,10 @@ int ParticleGenerator::drawParticles()
             theta = myRand(1.0, 360.0);
 
             tabLife[i] = 1.0;
-            //calcul d'une vitesse aléatoire selon les trois axes
             tabVelocities[i].x = myRand(0.1,1.5)*cos(theta);
             tabVelocities[i].y = myRand(15.0,20.0);
             tabVelocities[i].z = myRand(0.1,1.5)*sin(theta);
+
             tabSize[i] = myRand(0.5,2);
         }
     }
@@ -86,7 +75,7 @@ int ParticleGenerator::drawParticles()
 }
 
 void
-ParticleGenerator::drawShape()
+Fountain::drawShape()
 {
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
@@ -124,7 +113,7 @@ ParticleGenerator::drawShape()
 }
 
 void
-ParticleGenerator::drawShape(const char* shader_name)
+Fountain::drawShape(const char* shader_name)
 {
 
 }

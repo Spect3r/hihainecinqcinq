@@ -2,9 +2,9 @@
 
 
 #include "Shapes/Basis.h"
-#include "Shapes/particlegenerator.h"
+#include "Shapes/fountain.h"
 #include "Shapes/camera.h"
-#include "Shapes/fireworks.h"
+#include "Shapes/torch.h"
 #include "Shapes/tornado.h"
 
 #include <QDesktopWidget>
@@ -18,17 +18,17 @@ using namespace std;
 GLfloat angle1 = 30.0f;
 GLfloat angle2 = 20.0f;
 
-GLint fontaineShader;
-GLint artificeShader;
+GLint fountainShader;
+GLint torchShader;
 GLint tornadoShader;
-GLint currentShader = fontaineShader;
+GLint currentShader = fountainShader;
 
 const GLfloat g_AngleSpeed = 10.0f;
 
 
 Basis* g_Basis;
-ParticleGenerator* g_ParticleGenerator;
-Fireworks* g_Fireworks;
+Fountain* g_Fountain;
+Torch* g_Torch;
 Tornado* g_Tornado;
 Camera* g_Camera;
 
@@ -37,11 +37,9 @@ Simulator::Simulator()
 {
     setWindowTitle(trUtf8("Simulateur de particules - IN55"));
     setFixedSize(1200,800);
-
-    // instanciastion des différents types de systèmes de particules et camera
-    //g_Basis = new Basis( 10.0 );
-    g_ParticleGenerator = new ParticleGenerator();
-    g_Fireworks = new Fireworks();
+    g_Basis = new Basis( 10.0 );
+    g_Fountain = new Fountain();
+    g_Torch = new Torch();
     g_Tornado = new Tornado();
     g_Camera = new Camera(Vec3(1,0.5,1.5),Vec3(0,0.6,0),Vec3(0,1,0));
 }
@@ -50,8 +48,8 @@ Simulator::Simulator()
 Simulator::~Simulator()
 {
     delete g_Basis;
-    delete g_ParticleGenerator;
-    delete g_Fireworks;
+    delete g_Fountain;
+    delete g_Torch;
     delete g_Tornado;
 }
 
@@ -63,23 +61,18 @@ Simulator::initializeObjects()
 	glClearColor( 0.2f, 0.2f, 0.2f, 1.0f );
 	glEnable( GL_DEPTH_TEST );
 
-    // Initialisation des particules pourchaque systeme
-    g_ParticleGenerator->initializeParticles();
-    cout<<"Initialize"<<endl;
-    g_Fireworks->initializeParticles();
-    cout<<"Initialize2"<<endl;
+    // Initialisation des particules
+    g_Fountain->initializeParticles();
+    g_Torch->initializeParticles();
     g_Tornado->initializeParticles();
-    cout<<"Initialize3"<<endl;
 
 	// Chargement des shaders
-    fontaineShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/fontaine");
-    artificeShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/artifice");
-    tornadoShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/tornado");
+    fountainShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/Projet/template/Template/release/Shaders/fountain");
+    torchShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/Projet/template/Template/release/Shaders/torch");
+    tornadoShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/Projet/template/Template/release/Shaders/tornado");
 
-    //vérification du bon chargement des différents shaders
-
-    cout << "Shader fontaine: ";
-    if (useShader( "fontaine" ))
+    cout << "Shader fountain: ";
+    if (useShader( "fountain" ))
     {
         cout << "Loaded!" << endl;
     }
@@ -88,8 +81,8 @@ Simulator::initializeObjects()
         cout << "NOT Loaded!" << endl;
     }
 
-    cout << "Shader artifice : ";
-    if (useShader( "artifice" ))
+    cout << "Shader torch : ";
+    if (useShader( "torch" ))
     {
         cout << "Loaded!" << endl;
     }
@@ -114,7 +107,7 @@ Simulator::initializeObjects()
     GLuint texId[NBR_TEXTURES];
     glGenTextures( NBR_TEXTURES, texId );
     // Initialisation de la première texture stockée dans l'unité de texture #0
-//    glActiveTexture( GL_TEXTURE0 );
+    // glActiveTexture( GL_TEXTURE0 );
     glBindTexture( GL_TEXTURE_2D, texId[0] );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
@@ -135,16 +128,15 @@ Simulator::render()
 		rotate( angle2, 1, 0, 0 );
 
         //g_Basis->draw();
-        // tracer du bon système de particule en fonction du shader utilisé
-        if(currentShader == fontaineShader){
-            g_ParticleGenerator->drawParticles();
-            g_ParticleGenerator->draw(currentShader);
+        if(currentShader == fountainShader){
+            g_Fountain->drawParticles();
+            g_Fountain->draw(currentShader);
         }
-        else if(currentShader == artificeShader)
+        else if(currentShader == torchShader)
         {
-            g_Fireworks->drawParticles();
-            g_Fireworks->draw(currentShader);
-            g_Fireworks->drawStick();
+            g_Torch->drawParticles();
+            g_Torch->draw(currentShader);
+            g_Torch->drawStick();
         }
         else if(currentShader == tornadoShader)
         {
@@ -167,7 +159,6 @@ Simulator::keyPressEvent( QKeyEvent* event )
 			close();
 			break;
 
-        //gestion des déplacements latéraux, avant et arrière de la caméra
 		case Qt::Key_Left:
             g_Camera->deplacerGauche();
 			break;
@@ -186,14 +177,12 @@ Simulator::keyPressEvent( QKeyEvent* event )
 
 		case Qt::Key_R:
 			angle1 = angle2 = 0.0f;
-            break;
-
-        //sélection du shader à utiliser
+			break;
         case Qt::Key_F1:
-            currentShader = fontaineShader;
+            currentShader = fountainShader;
             break;
         case Qt::Key_F2:
-            currentShader = artificeShader;
+            currentShader = torchShader;
             break;
         case Qt::Key_F3:
             currentShader = tornadoShader;
@@ -201,9 +190,6 @@ Simulator::keyPressEvent( QKeyEvent* event )
 	}
 }
 
-/*
- * Pour détecter les mouvements de la souris et modifier ainsi là où regarde la caméra
-*/
 void
 Simulator::mouseMoveEvent(QMouseEvent *event)
 {

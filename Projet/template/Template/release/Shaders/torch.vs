@@ -25,7 +25,7 @@ void main()
 
   float deltaTime = (2.0 - life)/fade;
 
-  transparency -= fade*deltaTime;
+  //transparency -= fade*deltaTime;
 
   if(life > 0)
   {

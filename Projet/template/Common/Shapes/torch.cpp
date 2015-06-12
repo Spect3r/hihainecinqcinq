@@ -1,60 +1,96 @@
-#include "fireworks.h"
+#include "torch.h"
 #include <cstdlib>
 #include <iostream>
 
-Fireworks::Fireworks()
+Torch::Torch()
 {
 }
 
-Fireworks::~Fireworks()
+Torch::~Torch()
 {
 
 }
 
-/*
- * Tracer du baton de la torche
-*/
-void Fireworks::drawStick()
+void Torch::drawStick()
 {
 
         glBegin(GL_QUADS);
 
+        // Face Avant
         glColor3ub(255,0,0);
-        glVertex3d(-0.1,0,0);
-        glVertex3d(-0.1,-4,0);
-        glVertex3d(0.1,-4,0);
-        glVertex3d(0.1,0,0);
+        glVertex3d(-0.1,0,0.1);
+        glVertex3d(-0.1,-4,0.1);
+        glVertex3d(0.1,-4,0.1);
+        glVertex3d(0.1,0,0.1);
+        // Face Arrière
+        glColor3ub(255,0,0);
+        glVertex3d(-0.1,0,-0.1);
+        glVertex3d(-0.1,-4,-0.1);
+        glVertex3d(0.1,-4,-0.1);
+        glVertex3d(0.1,0,-0.1);
+        // Face dessus
+        glColor3ub(255,0,0);
+        glVertex3d(0.1,0,-0.1);
+        glVertex3d(0.1, 0, 0.1);
+        glVertex3d(-0.1, 0, 0.1);
+        glVertex3d(-0.1,0, -0.1);
+        // face dessous
+        glColor3ub(255,0,0);
+        glVertex3d(0.1,-4,-0.1);
+        glVertex3d(0.1, -4, 0.1);
+        glVertex3d(-0.1, -4, 0.1);
+        glVertex3d(-0.1,-4, -0.1);
+        // face côté
+        glColor3ub(255,0,0);
+        glVertex3d(-0.1,0,0.1);
+        glVertex3d(-0.1,-4,0.1);
+        glVertex3d(-0.1,-4,-0.1);
+        glVertex3d(-0.1,0,-0.1);
+        // face côté
+        glColor3ub(255,0,0);
+        glVertex3d(0.1,0,0.1);
+        glVertex3d(0.1,-4,0.1);
+        glVertex3d(0.1,-4,-0.1);
+        glVertex3d(0.1,0,-0.1);
         glEnd();
 
         glFlush();
 }
 
-/*
- * Fonction permettant d'obtenir une valeur comprise entre deux valeurs passées en paramètre
-*/
-double Fireworks::myRand(double min, double max)
+GLfloat tabTorch[] = {
+    -5.0, 0.0, 0.0,
+    -5.0, -10.0, 0.0,
+    5.0, -10.0, 0.0,
+    5.0, 0.0, 0.0
+};
+
+GLuint tabIndicesTorch[] = {
+  0,1,2,3
+};
+
+double Torch::myRand(double min, double max)
 {
     return (double) (min + ((float) rand() / RAND_MAX * (max - min + 1.0)));
 }
 
-int Fireworks::initializeParticles()
+int Torch::initializeParticles()
 {
 
     for(int i=0; i<MAX_PARTICLES; i++)   // Boucle sur toutes les particules
     {
-        tabIndices[i] = i; //initialisation du tableau d'indices
+        tabIndices[i] = i;
         tabLife[i] = 1.0; // Maximum de vie
 
 
 
         tabFade[i] = myRand(0.03,0.04);  // Vitesse de disparition aléatoire
 
-        // Initialisation des particules à l'origine
+        // Initialisation à l'origine
         tabPositions[i].x = 0.0;
         tabPositions[i].y = 0.0;
         tabPositions[i].z = 0.0;
 
-        // Calcul de Theta
+        // Calcul Theta
         theta = myRand(1.0, 360.0);
 
         // Vitesse aléatoire
@@ -62,7 +98,7 @@ int Fireworks::initializeParticles()
         tabVelocities[i].y = myRand(15.0,20.0);
         tabVelocities[i].z = myRand(0.1,4)*sin(theta);
 
-        tabSize[i] = myRand(5,10); // taille aléatoire pour chaque particule
+        tabSize[i] = myRand(5,10);
 
         tabTransparency[i] = 1.0;
 
@@ -71,10 +107,7 @@ int Fireworks::initializeParticles()
     return 0;    // Initialisation OK
 }
 
-/*
- * Fonction de mise à jour des particules
-*/
-int Fireworks::drawParticles()
+int Torch::drawParticles()
 {   for(int i=0; i<MAX_PARTICLES; i++) // Pour chaque particule
     {
         if(tabLife[i] > 0)
@@ -116,7 +149,7 @@ int Fireworks::drawParticles()
 }
 
 void
-Fireworks::drawShape()
+Torch::drawShape()
 {
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
@@ -150,6 +183,8 @@ Fireworks::drawShape()
 
    glDrawElements( GL_POINTS, MAX_PARTICLES, GL_UNSIGNED_INT, tabIndices ); // trace tous les points
 
+   glDrawElements( GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, tabIndicesTorch );
+
    glDisableVertexAttribArray( var1 );
    glDisableVertexAttribArray( var2 );
    glDisableVertexAttribArray( var3 );
@@ -160,7 +195,7 @@ Fireworks::drawShape()
 }
 
 void
-Fireworks::drawShape(const char* shader_name)
+Torch::drawShape(const char* shader_name)
 {
 
 }

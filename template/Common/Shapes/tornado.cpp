@@ -12,11 +12,17 @@ Tornado::~Tornado()
 
 }
 
+/*
+ * Fonction permettant d'obtenir une valeur comprise entre deux valeurs passées en paramètre
+*/
 double Tornado::myRand(double min, double max)
 {
     return (double) (min + ((float) rand() / RAND_MAX * (max - min + 1.0)));
 }
 
+/*
+ * fonction d'initailisation des particules
+*/
 Tornado::initializeParticles()
 {
 
@@ -52,15 +58,13 @@ Tornado::initializeParticles()
         tabVelocities[i].z = sin(tabTheta[i]);
 
         tabSize[i] = myRand(0.5,1.5);
-
-        /*tabPositions[i].x += cos(tabTheta[i]);
-        tabPositions[i].z += sin(tabTheta[i]);*/
-
-
     }
     return 0;    // Initialisation OK
 }
 
+/*
+ * Fonction de mise à jour des particules
+*/
 Tornado::drawParticles()
 {   for(int i=0; i<MAX_PARTICLES; i++) // Pour chaque particule
     {
@@ -77,8 +81,6 @@ Tornado::drawParticles()
         {
             tabTheta[i]+=1;
         }
-            // Calcul Theta
-            //theta = myRand(1.0, 360.0);
 
             tabLife[i] = 1.0;
             tabVelocities[i].x = cos(tabTheta[i]);
