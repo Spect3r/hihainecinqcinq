@@ -8,7 +8,16 @@
 // Last update: 2012-05-01
 //
 //*****************************************************************************
-
+//
+// Particle System
+// Author : Thomas BOY
+//          Julien DHENIN
+//          Nicolas FARINE
+//
+// This project has been done as part of the IN55 course
+// UTBM - Spring 2015
+//
+//*****************************************************************************
 
 #include "simulator.h"
 

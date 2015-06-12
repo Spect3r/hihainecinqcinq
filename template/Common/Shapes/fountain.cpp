@@ -1,22 +1,22 @@
-#include "particlegenerator.h"
+#include "fountain.h"
 #include <cstdlib>
 #include <iostream>
 
-ParticleGenerator::ParticleGenerator()
+Fountain::Fountain()
 {
 }
 
-ParticleGenerator::~ParticleGenerator()
+Fountain::~Fountain()
 {
 
 }
 
-double ParticleGenerator::myRand(double min, double max)
+double Fountain::myRand(double min, double max)
 {
     return (double) (min + ((float) rand() / RAND_MAX * (max - min + 1.0)));
 }
 
-int ParticleGenerator::initializeParticles()
+int Fountain::initializeParticles()
 {
 
     for(int i=0; i<MAX_PARTICLES; i++)   // Boucle sur toutes les particules
@@ -27,24 +27,6 @@ int ParticleGenerator::initializeParticles()
         tabColors[i].x = 0.41;
         tabColors[i].y = 0.5;
         tabColors[i].z = 0.71;
-
-        /*if(tabColors[i].x < 1.0)
-            tabColors[i].x += 0.03;
-
-        else
-            tabColors[i].x = 1.0;
-
-        if(tabColors[i].y < 1.0)
-            tabColors[i].y += 0.03;
-
-        else
-            tabColors[i].y = 1.0;
-
-        if(tabColors[i].z < 1.0)
-            tabColors[i].z += 0.03;
-
-        else
-            tabColors[i].z = 1.0;*/
 
         tabFade[i] = myRand(0.01,0.1);  // Vitesse de disparition aléatoire
 
@@ -68,30 +50,12 @@ int ParticleGenerator::initializeParticles()
     return 0;    // Initialisation OK
 }
 
-int ParticleGenerator::drawParticles()
+int Fountain::drawParticles()
 {   for(int i=0; i<MAX_PARTICLES; i++) // Pour chaque particule
     {
         if(tabLife[i] > 0)
         {  
             tabLife[i] -= tabFade[i];
-
-           /* if(tabColors[i].x < 1.0)
-                tabColors[i].x += 0.03;
-
-            else
-                tabColors[i].x = 1.0;
-
-            if(tabColors[i].y < 1.0)
-                tabColors[i].y += 0.03;
-
-            else
-                tabColors[i].y = 1.0;
-
-            if(tabColors[i].z < 1.0)
-                tabColors[i].z += 0.03;
-
-            else
-                tabColors[i].z = 1.0;*/
         }
         else
         {
@@ -102,9 +66,7 @@ int ParticleGenerator::drawParticles()
             tabVelocities[i].x = myRand(0.1,1.5)*cos(theta);
             tabVelocities[i].y = myRand(15.0,20.0);
             tabVelocities[i].z = myRand(0.1,1.5)*sin(theta);
-            /*tabColors[i].x = 0.41;
-            tabColors[i].y = 0.5;
-            tabColors[i].z = 0.71;*/
+
             tabSize[i] = myRand(0.5,2);
         }
     }
@@ -113,7 +75,7 @@ int ParticleGenerator::drawParticles()
 }
 
 void
-ParticleGenerator::drawShape()
+Fountain::drawShape()
 {
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
@@ -151,7 +113,7 @@ ParticleGenerator::drawShape()
 }
 
 void
-ParticleGenerator::drawShape(const char* shader_name)
+Fountain::drawShape(const char* shader_name)
 {
 
 }

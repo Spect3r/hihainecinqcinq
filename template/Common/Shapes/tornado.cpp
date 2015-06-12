@@ -53,9 +53,6 @@ Tornado::initializeParticles()
 
         tabSize[i] = myRand(0.5,1.5);
 
-        /*tabPositions[i].x += cos(tabTheta[i]);
-        tabPositions[i].z += sin(tabTheta[i]);*/
-
 
     }
     return 0;    // Initialisation OK
@@ -78,7 +75,6 @@ Tornado::drawParticles()
             tabTheta[i]+=1;
         }
             // Calcul Theta
-            //theta = myRand(1.0, 360.0);
 
             tabLife[i] = 1.0;
             tabVelocities[i].x = cos(tabTheta[i]);

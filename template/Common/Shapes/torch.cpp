@@ -1,17 +1,17 @@
-#include "fireworks.h"
+#include "torch.h"
 #include <cstdlib>
 #include <iostream>
 
-Fireworks::Fireworks()
+Torch::Torch()
 {
 }
 
-Fireworks::~Fireworks()
+Torch::~Torch()
 {
 
 }
 
-void Fireworks::drawStick()
+void Torch::drawStick()
 {
 
         glBegin(GL_QUADS);
@@ -26,23 +26,23 @@ void Fireworks::drawStick()
         glFlush();
 }
 
-GLfloat tabTorche[] = {
+GLfloat tabTorch[] = {
     -5.0, 0.0, 0.0,
     -5.0, -10.0, 0.0,
     5.0, -10.0, 0.0,
     5.0, 0.0, 0.0
 };
 
-GLuint tabIndicesTorche[] = {
+GLuint tabIndicesTorch[] = {
   0,1,2,3
 };
 
-double Fireworks::myRand(double min, double max)
+double Torch::myRand(double min, double max)
 {
     return (double) (min + ((float) rand() / RAND_MAX * (max - min + 1.0)));
 }
 
-int Fireworks::initializeParticles()
+int Torch::initializeParticles()
 {
 
     for(int i=0; i<MAX_PARTICLES; i++)   // Boucle sur toutes les particules
@@ -76,7 +76,7 @@ int Fireworks::initializeParticles()
     return 0;    // Initialisation OK
 }
 
-int Fireworks::drawParticles()
+int Torch::drawParticles()
 {   for(int i=0; i<MAX_PARTICLES; i++) // Pour chaque particule
     {
         if(tabLife[i] > 0)
@@ -118,7 +118,7 @@ int Fireworks::drawParticles()
 }
 
 void
-Fireworks::drawShape()
+Torch::drawShape()
 {
     glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
@@ -152,7 +152,7 @@ Fireworks::drawShape()
 
    glDrawElements( GL_POINTS, MAX_PARTICLES, GL_UNSIGNED_INT, tabIndices ); // trace tous les points
 
-   glDrawElements( GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, tabIndicesTorche );
+   glDrawElements( GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_INT, tabIndicesTorch );
 
    glDisableVertexAttribArray( var1 );
    glDisableVertexAttribArray( var2 );
@@ -164,7 +164,7 @@ Fireworks::drawShape()
 }
 
 void
-Fireworks::drawShape(const char* shader_name)
+Torch::drawShape(const char* shader_name)
 {
 
 }

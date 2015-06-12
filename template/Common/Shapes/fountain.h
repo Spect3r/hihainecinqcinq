@@ -1,24 +1,22 @@
-#ifndef FIREWORKS_H
-#define FIREWORKS_H
-
+#ifndef FOUNTAIN_H
+#define FOUNTAIN_H
 
 #include "Object3D.h"
 #include <vector>
 using namespace std;
 #include "Vectors.h"
-#define MAX_PARTICLES 10000
+#define MAX_PARTICLES 100000
 
 
-class Fireworks : public Object3D
+class Fountain : public Object3D
 {
 
 public:
-    Fireworks();
-    ~Fireworks();
+    Fountain();
+    ~Fountain();
 
     int initializeParticles();
     int drawParticles();
-    void drawStick();
     double myRand(double min, double max);
 protected :
     void drawShape();
@@ -30,10 +28,8 @@ protected :
     GLfloat tabLife[MAX_PARTICLES];
     GLfloat tabFade[MAX_PARTICLES];
     GLfloat tabSize[MAX_PARTICLES];
-    GLfloat tabTransparency[MAX_PARTICLES];
-
     float theta;
 
 };
 
-#endif // FIREWORKS_H
+#endif // FOUNTAIN_H

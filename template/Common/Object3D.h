@@ -16,7 +16,6 @@ class Object3D
 
 	protected:
         virtual void drawShape() = 0;
-        //virtual void drawShape(const char* = NULL) = 0;
 
 	protected:
 		static AbstractFramework* m_Framework;

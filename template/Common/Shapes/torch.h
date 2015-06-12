@@ -1,22 +1,24 @@
-#ifndef PARTICLEGENERATOR_H
-#define PARTICLEGENERATOR_H
+#ifndef TORCH_H
+#define TORCH_H
+
 
 #include "Object3D.h"
 #include <vector>
 using namespace std;
 #include "Vectors.h"
-#define MAX_PARTICLES 100000
+#define MAX_PARTICLES 10000
 
 
-class ParticleGenerator : public Object3D
+class Torch : public Object3D
 {
 
 public:
-    ParticleGenerator();
-    ~ParticleGenerator();
+    Torch();
+    ~Torch();
 
     int initializeParticles();
     int drawParticles();
+    void drawStick();
     double myRand(double min, double max);
 protected :
     void drawShape();
@@ -28,8 +30,10 @@ protected :
     GLfloat tabLife[MAX_PARTICLES];
     GLfloat tabFade[MAX_PARTICLES];
     GLfloat tabSize[MAX_PARTICLES];
+    GLfloat tabTransparency[MAX_PARTICLES];
+
     float theta;
 
 };
 
-#endif // PARTICLEGENERATOR_H
+#endif // TORCH_H

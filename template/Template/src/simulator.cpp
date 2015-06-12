@@ -2,9 +2,9 @@
 
 
 #include "Shapes/Basis.h"
-#include "Shapes/particlegenerator.h"
+#include "Shapes/fountain.h"
 #include "Shapes/camera.h"
-#include "Shapes/fireworks.h"
+#include "Shapes/torch.h"
 #include "Shapes/tornado.h"
 
 #include <QDesktopWidget>
@@ -18,17 +18,17 @@ using namespace std;
 GLfloat angle1 = 30.0f;
 GLfloat angle2 = 20.0f;
 
-GLint fontaineShader;
-GLint artificeShader;
+GLint fountainShader;
+GLint torchShader;
 GLint tornadoShader;
-GLint currentShader = fontaineShader;
+GLint currentShader = fountainShader;
 
 const GLfloat g_AngleSpeed = 10.0f;
 
 
 Basis* g_Basis;
-ParticleGenerator* g_ParticleGenerator;
-Fireworks* g_Fireworks;
+Fountain* g_Fountain;
+Torch* g_Torch;
 Tornado* g_Tornado;
 Camera* g_Camera;
 
@@ -38,8 +38,8 @@ Simulator::Simulator()
     setWindowTitle(trUtf8("Simulateur de particules - IN55"));
     setFixedSize(1200,800);
     g_Basis = new Basis( 10.0 );
-    g_ParticleGenerator = new ParticleGenerator();
-    g_Fireworks = new Fireworks();
+    g_Fountain = new Fountain();
+    g_Torch = new Torch();
     g_Tornado = new Tornado();
     g_Camera = new Camera(Vec3(1,0.5,1.5),Vec3(0,0.6,0),Vec3(0,1,0));
 }
@@ -48,8 +48,8 @@ Simulator::Simulator()
 Simulator::~Simulator()
 {
     delete g_Basis;
-    delete g_ParticleGenerator;
-    delete g_Fireworks;
+    delete g_Fountain;
+    delete g_Torch;
     delete g_Tornado;
 }
 
@@ -62,22 +62,17 @@ Simulator::initializeObjects()
 	glEnable( GL_DEPTH_TEST );
 
     // Initialisation des particules
-    g_ParticleGenerator->initializeParticles();
-    cout<<"Initialize"<<endl;
-    g_Fireworks->initializeParticles();
-    cout<<"Initialize2"<<endl;
+    g_Fountain->initializeParticles();
+    g_Torch->initializeParticles();
     g_Tornado->initializeParticles();
-    cout<<"Initialize3"<<endl;
 
 	// Chargement des shaders
-    fontaineShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/fontaine");
-    artificeShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/artifice");
+    fountainShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/fountain");
+    torchShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/torch");
     tornadoShader = createShader("/Users/Julien/Documents/UTBM/IN55/Projet/template/Template/release/Shaders/tornado");
 
-    cout<<"pas OK"<<endl;
-
-    cout << "Shader fontaine: ";
-    if (useShader( "fontaine" ))
+    cout << "Shader fountain: ";
+    if (useShader( "fountain" ))
     {
         cout << "Loaded!" << endl;
     }
@@ -86,8 +81,8 @@ Simulator::initializeObjects()
         cout << "NOT Loaded!" << endl;
     }
 
-    cout << "Shader artifice : ";
-    if (useShader( "artifice" ))
+    cout << "Shader torch : ";
+    if (useShader( "torch" ))
     {
         cout << "Loaded!" << endl;
     }
@@ -112,7 +107,7 @@ Simulator::initializeObjects()
     GLuint texId[NBR_TEXTURES];
     glGenTextures( NBR_TEXTURES, texId );
     // Initialisation de la première texture stockée dans l'unité de texture #0
-//    glActiveTexture( GL_TEXTURE0 );
+    // glActiveTexture( GL_TEXTURE0 );
     glBindTexture( GL_TEXTURE_2D, texId[0] );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
@@ -133,15 +128,15 @@ Simulator::render()
 		rotate( angle2, 1, 0, 0 );
 
         //g_Basis->draw();
-        if(currentShader == fontaineShader){
-            g_ParticleGenerator->drawParticles();
-            g_ParticleGenerator->draw(currentShader);
+        if(currentShader == fountainShader){
+            g_Fountain->drawParticles();
+            g_Fountain->draw(currentShader);
         }
-        else if(currentShader == artificeShader)
+        else if(currentShader == torchShader)
         {
-            g_Fireworks->drawParticles();
-            g_Fireworks->draw(currentShader);
-            g_Fireworks->drawStick();
+            g_Torch->drawParticles();
+            g_Torch->draw(currentShader);
+            g_Torch->drawStick();
         }
         else if(currentShader == tornadoShader)
         {
